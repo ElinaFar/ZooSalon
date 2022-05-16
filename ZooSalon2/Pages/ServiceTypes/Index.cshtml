@@ -1,0 +1,71 @@
+﻿@page
+@model ZooSalon2.Pages.ServiceTypes.IndexModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Список услуг</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a class="btn btn-outline-secondary" asp-page="Create"><i class="fas fa-plus"></i>&nbsp; Добавить</a> @*Добавили снопку создать и плюсик картинкой*@
+    </div>
+</div>
+<div class="border white-background">
+    
+
+    <div>
+
+        @if (Model.ServiceTypes.Count() == 0)
+        {
+            <p class="text-danger">Такой услуги не существует. Пожалуйста создайте новую.</p>
+        }
+        else
+        {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        @*@Html.DisplayNameFor(m => m.ServiceTypes[0].Name)*@
+                        @Html.LabelFor(m => m.ServiceTypes[0].Name, "Название")
+                    </th>
+
+                    <th>
+                        @*@Html.DisplayNameFor(m => m.ServiceTypes[0].Price)*@
+                        @Html.LabelFor(m => m.ServiceTypes[0].Price, "Цена")
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+                @foreach (var item in Model.ServiceTypes)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Price)
+                        </td>
+                        <td style="width:120px">
+                            <div class="btn-group" role="group">
+                                <a asp-page="Details" class="btn btn-light" asp-route-id="@item.Id"><i class="far fa-list-alt"></i></a>
+                                <a asp-page="Edit" class="btn btn-light" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+                                <a asp-page="Delete" class="btn btn-light" asp-route-id="@item.Id"><i class="far fa-trash-alt"></i></a>
+                            </div>
+
+                        </td>
+                    </tr>
+                }
+
+
+            </table>
+
+
+        }
+
+    </div>
+
+</div>

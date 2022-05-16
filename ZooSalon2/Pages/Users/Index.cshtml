@@ -1,0 +1,134 @@
+﻿@page
+@model ZooSalon2.Pages.Users.IndexModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@*<img   src="~/Images/logo3.png"  style="float:left; margin: 0px 0px 0px 0px"  width="100"     />*@
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info"> Список клиентов</h2>
+        
+    </div>
+    <div class="col-6 text-right">
+        <a asp-page="/Account/Register" asp-area="Identity" class="btn btn-outline-secondary">
+            <i class="fas fa-plus"></i>&nbsp; Добавить
+        </a>
+
+    </div>
+</div>
+
+
+<form aps-page="Index" method="get">
+    <div class="white-background border ">
+
+        <div style="height:60px;" class="container border border-secondary  ">
+            @*добавляем поиск клиента*@
+            <div class="row">
+                <div class="col-11">
+                    <div class="row" style="padding-top:10px">
+                        <div class="col-4">
+                            @Html.Editor("searchLastName", new { htmlAttributes = new { @class = "form-control", placeholder = "Фамилия..." } })
+                        </div>
+                        <div class="col-4">
+                            @Html.Editor("searchFirstName", new { htmlAttributes = new { @class = "form-control", placeholder = "Имя..." } })
+                        </div>
+                        <div class="col-4">
+                            @Html.Editor("searchPhone", new { htmlAttributes = new { @class = "form-control", placeholder = "Номер телефона..." } })
+                        </div>
+                        @*<div class="col-4">
+                                @Html.Editor("searchEmail", new { htmlAttributes = new { @class = "form-control", placeholder = "Почтовый адресс..." } })
+                            </div>*@
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="row" style="padding-top:10px; padding-right:15px;">
+                        <button type="submit" class="btn btn-outline-primary form-control">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <br />
+        @if (Model.ApplicationUsersList.Any())
+        {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+
+                        @*@Html.DisplayNameFor(m => m.ApplicationUsersList[0].LasttName)"Фамилия"*@
+
+                        @Html.LabelFor(m => m.ApplicationUsersList[0].LasttName, "Фамилия")
+                    </th>
+                    <th>
+                        @*<label>Имя</label>*@
+                        @*<label for="FirstName">Имя</label>
+                            @Html.DisplayNameFor(m => m.ApplicationUsersList[0].FirstName)
+                            <label for="FirstName">Имя</label>*@
+                        @Html.LabelFor(m => m.ApplicationUsersList[0].FirstName, "Имя")
+                    </th>
+                    <th>
+                        @*<label>Номер телефона</label>
+                            @Html.DisplayNameFor(m => m.ApplicationUsersList[0].PhoneNumber)*@
+
+                        @Html.LabelFor(m => m.ApplicationUsersList[0].PhoneNumber, "Номер телефона")
+                    </th>
+                    <th>
+                        @*<label>Почта</label>
+                            @Html.DisplayNameFor(m => m.ApplicationUsersList[0].Email)*@
+
+                        @Html.LabelFor(m => m.ApplicationUsersList[0].Email, "Почта")
+                    </th>
+                    <th>
+
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.ApplicationUsersList)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.LasttName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.PhoneNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Email)
+                        </td>
+
+                        <td>
+                            <a asp-page="../Animals/Index" asp-route-userId="@item.Id" style="text-decoration:none">
+                                <img src="~/Images/ii.png" width="40" />&nbsp; Питомцы
+                            </a>
+                        </td>
+                        <td>
+                            <a asp-page="Edit" class="btn btn-light" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+                            <a asp-page="Delete" class="btn btn-light" asp-route-id="@item.Id"><i class="far fa-trash-alt"></i></a>
+
+                        </td>
+                    </tr>
+
+                }
+            </table>
+
+        }
+        else
+        {
+            <p class=" text-danger">Нет зарегистрированных пользователей.</p>
+
+        }
+
+    </div>
+</form>

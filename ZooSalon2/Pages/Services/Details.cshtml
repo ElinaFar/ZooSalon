@@ -1,0 +1,126 @@
+﻿@page
+@model ZooSalon2.Pages.Services.DetailsModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container pt-4 pb-2 row">
+    <div class=" col-6">
+        <h2 class="text-info">Детали</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-page="../Services/History" class="btn btn-outline-success" asp-route-animalId="@Model.Service.AnimalId">
+            Назад
+        </a>
+    </div>
+</div>
+
+<div class="container white-background ">
+    <div class="card">
+        <div class="card-header bg-dark text-light container row">
+            <div class="col-1 text-center text-white-50 pt-3 ">
+                <i class="fas fa-user fa-2x"></i>
+            </div>
+            <div class="col-5">
+                <label class="text-info">
+                    @Model.Service.Animal.ApplicationUser.LasttName
+                    @Model.Service.Animal.ApplicationUser.FirstName
+                </label>
+                <br />
+                <label class="text-info">
+                    @Model.Service.Animal.ApplicationUser.PhoneNumber / @Model.Service.Animal.ApplicationUser.Email
+                </label>
+            </div>
+            <div class="col-5 text-right">
+                <label class="text-info">
+                    @Model.Service.Animal.Name /  @Model.Service.Animal.Type  @Model.Service.Animal.Kind
+                </label>
+                <br />
+                <label class="text-info">
+                    @Model.Service.Animal.Weight кг
+                </label>
+
+            </div>
+
+            <div class="col-1 text-center text-white-50 pt-3 ">
+                <i class="fas fa-paw fa-2x"></i>
+            </div>
+        </div>
+
+        <div class="card-body">
+
+
+            <div class="border container rounded p-2">
+                <h3 class="text-info pb-2">Дневник посещений</h3>
+
+                @if (Model.ServicesDetails.Count() == 0)
+                {
+                    <p class="text-danger">
+                        Данных нет.
+                    </p>
+                }
+                else
+                {
+                    <div class="row mt-3">
+                        <div class="col-7">
+                            <table class="table table-striped border">
+                                <tr class="table-secondary">
+                                    <th>
+                                        @*@Html.DisplayNameFor(m => m.AnimalServiceVM.ServiceShoppingCarts[0].ServiceType.Name)*@
+                                        @Html.LabelFor(m => m.ServicesDetails[0].ServiceName, "Название")
+                                    </th>
+                                    <th>
+                                        @*@Html.DisplayNameFor(m => m.AnimalServiceVM.ServiceShoppingCarts[0].ServiceType.Price)*@
+                                        @Html.LabelFor(m => m.ServicesDetails[0].ServicePrice, "Цена")
+                                    </th>                                    
+                                </tr>
+
+                                @foreach (var item in Model.ServicesDetails)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(m => item.ServiceName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(m => item.ServicePrice)
+                                        </td>                                        
+                                    </tr>
+
+                                }
+                                <tr style="background-color:#e2fee2">
+                                    <td colspan="1">
+                                        <h6 class="text-success">
+                                            Итого:
+                                        </h6>
+
+                                    </td>
+                                    <td colspan="2">
+                                        <h6 class="text-success">
+                                            @Html.DisplayFor(m => m.Service.TotalPrice) руб
+                                        </h6>
+                                    </td>
+
+                                </tr>
+                            </table>
+
+                        </div>
+                        <div class="col-5">
+                            <div class=" row">
+                                <div class="col-12 pt-2">
+                                    <textarea class="form-control" asp-for="Service.Comments" readonly
+                                              style="height:150px"></textarea>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                }
+            </div>
+    
+
+        </div>
+
+
+    </div>
+</div>

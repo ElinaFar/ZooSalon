@@ -1,0 +1,56 @@
+﻿@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info"> <img src="~/Images/logo3.png" width="100" /> Список услуг</h2>
+    </div>    
+</div>
+<div class="border white-background">
+
+
+    <div>
+
+        @if (Model.ServiceTypes.Count() == 0)
+        {
+            <p class="text-danger">Такой услуги не существует. Пожалуйста создайте новую.</p>
+        }
+        else
+        {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        @*@Html.DisplayNameFor(m => m.ServiceTypes[0].Name)*@
+                        @Html.LabelFor(m => m.ServiceTypes[0].Name, "Название")
+                    </th>
+
+                    <th>
+                        @*@Html.DisplayNameFor(m => m.ServiceTypes[0].Price)*@
+                        @Html.LabelFor(m => m.ServiceTypes[0].Price, "Цена")
+                    </th>
+                
+                </tr>
+                @foreach (var item in Model.ServiceTypes)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Price)
+                        </td>
+                      
+                    </tr>
+                }
+
+
+            </table>
+
+
+        }
+
+    </div>
+
+</div>

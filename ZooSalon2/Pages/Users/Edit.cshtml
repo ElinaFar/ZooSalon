@@ -1,0 +1,90 @@
+﻿@page
+@model ZooSalon2.Pages.Users.EditModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<h2 class="text-info pt-2 pb-3">Изменить аккаунт.</h2>
+<div class="white-background row border">
+    <div class="col-8">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            @Html.HiddenFor(m => m.ApplicationUser.Id)
+
+            <div class="row form-group">
+                <div class="col-4">
+                    <label asp-for="ApplicationUser.FirstName"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="ApplicationUser.FirstName" class="form-control" />
+                    <span asp-validation-for="ApplicationUser.FirstName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-4">
+                    <label asp-for="ApplicationUser.LasttName"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="ApplicationUser.LasttName" class="form-control" />
+                    <span asp-validation-for="ApplicationUser.LasttName" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="row form-group">
+                <div class="col-4">
+                    <label asp-for="ApplicationUser.Email"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="ApplicationUser.Email" class="form-control" readonly />
+                    <span asp-validation-for="ApplicationUser.Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-4">
+                    <label asp-for="ApplicationUser.PhoneNumber"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="ApplicationUser.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="ApplicationUser.PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-4">
+                    <label asp-for="ApplicationUser.Birthday"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="ApplicationUser.Birthday" class="form-control" />
+                    <span asp-validation-for="ApplicationUser.Birthday" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="row form-group">
+                <div class="col-4">
+
+                </div>
+
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-outline-primary form-control">Сохранить</button>
+
+                        </div>
+
+                        <div class="col-6">
+                            <a asp-page="Index" class="btn btn-outline-success form-control">Назад</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+
+</div>

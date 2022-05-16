@@ -1,0 +1,164 @@
+﻿@page
+@model ZooSalon2.Pages.Services.RecordModel
+@{
+    ViewData["Title"] = "Record";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container pt-4 pb-2 row">
+    <div class=" col-6">
+        <h2 class="text-info">Создать новую запись</h2>
+    </div>S
+    <div class="col-6 text-right">
+        <a asp-page="../Animals/Index" asp-route-userId="@Model.AnimalServiceVM.Animal.UserId" class="btn btn-outline-success"  >
+            Назад
+        </a>
+    </div>
+</div>
+
+<div class="container white-background ">
+    <div class="card">
+        <div class="card-header bg-dark text-light container row ml-0">
+            <div class="col-1 text-center text-white-50 pt-3 ">
+                <i class="fas fa-user fa-2x"></i>
+            </div>
+            <div class="col-5">
+                <label class="text-info">
+                    @Model.AnimalServiceVM.Animal.ApplicationUser.LasttName
+                    @Model.AnimalServiceVM.Animal.ApplicationUser.FirstName
+                </label>
+                <br />
+                <label class="text-info">
+                    @Model.AnimalServiceVM.Animal.ApplicationUser.PhoneNumber / @Model.AnimalServiceVM.Animal.ApplicationUser.Email
+                </label>
+            </div>
+            <div class="col-5 text-right">
+                <label class="text-info">
+                    @Model.AnimalServiceVM.Animal.Name /  @Model.AnimalServiceVM.Animal.Type  @Model.AnimalServiceVM.Animal.Kind
+                </label>
+                <br />
+                <label class="text-info">
+                    @Model.AnimalServiceVM.Animal.Weight кг
+                </label>
+
+            </div>
+
+            <div class="col-1 text-center text-white-50 pt-3 ">
+                <i class="fas fa-paw fa-2x"></i>
+            </div>
+        </div>
+    
+         
+        <div class="card-body">       
+            <form method="post" style="width:100%">
+
+            @Html.HiddenFor(m => m.AnimalServiceVM.Animal.Id)
+
+            <div class="container">
+                <div class=" border rounded p-2 ">
+                    <div class=" row">
+                        <div class=" col-3 ">
+                            <h4 class="text-info pl-3 pt-2 pb-1">Добавить запись</h4>
+                        </div>
+                        <div class="col-9 pb-1 pt-2">
+                            <div class="row">
+                                <div class="col-8">
+                                    <select asp-for="AnimalServiceVM.ServiceDetails.ServiceTypeId"
+                                            asp-items="@(new SelectList(Model.AnimalServiceVM.ServiceTypes, "Id", "Name"))"
+                                            class="form-control">
+                                    </select>
+
+                                </div>
+                                <div class="col-4">
+                                    <button type="submit" asp-page-handler="AddToCart" class="btn btn-outline-primary form-control">Добавить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <br />
+            <div class="border container rounded p-2">
+                <h3 class="text-info pb-2">Дневник посещений</h3>
+
+                @if (Model.AnimalServiceVM.ServiceShoppingCarts.Count() == 0)
+                {
+                    <p class="text-danger">
+                        Данных нет. Пожалуйста добавьте новую запись.
+                    </p>
+                }
+                else
+                {
+                    <div class="row mt-3">
+                        <div class="col-7">
+                            <table class="table table-striped border">
+                                <tr class="table-secondary">
+                                    <th>
+                                        @*@Html.DisplayNameFor(m => m.AnimalServiceVM.ServiceShoppingCarts[0].ServiceType.Name)*@
+                                        @Html.LabelFor(m => m.AnimalServiceVM.ServiceShoppingCarts[0].ServiceType.Name, "Название")
+                                    </th>
+                                    <th>
+                                        @*@Html.DisplayNameFor(m => m.AnimalServiceVM.ServiceShoppingCarts[0].ServiceType.Price)*@
+                                        @Html.LabelFor(m => m.AnimalServiceVM.ServiceShoppingCarts[0].ServiceType.Price, "Цена")
+                                    </th>
+                                    <th>
+                                    </th>
+                                </tr>
+
+                                @foreach (var item in Model.AnimalServiceVM.ServiceShoppingCarts)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(m => item.ServiceType.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(m => item.ServiceType.Price)
+                                        </td>
+                                        <td>
+                                            <button class=" btn btn-outline-danger form-control" type="submit" asp-page-handler="RemoveFromCart" asp-route-serviceCartId="@item.Id">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                }
+                                <tr style="background-color:#e2fee2">
+                                    <td colspan="1">
+                                        <h6 class="text-success">
+                                            Итого:
+                                        </h6>
+
+                                    </td>
+                                    <td colspan="2">
+                                        <h6 class="text-success">
+                                            @Html.DisplayFor(m => m.AnimalServiceVM.Service.TotalPrice) руб
+                                        </h6>
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-5">
+                            <div class=" row">
+                                <div class="col-12 pt-2">
+                                    <textarea class="form-control" asp-for="AnimalServiceVM.Service.Comments" placeholder="Комментарий..."
+                                              style="height:150px"></textarea>
+                                </div>
+                            </div>
+                            <div class=" row">
+                                <div class="col-12 pt-2">
+                                    <button type="submit" class="btn btn-outline-success form-control" asp-route-userId="@Model.AnimalServiceVM.Animal.UserId" asp-page-handler="Complete" > Добавить</button>                                  
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        
+            </form>  
+    
+        </div>   
+    </div>
+</div>

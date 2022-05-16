@@ -1,0 +1,49 @@
+﻿@page
+@model ZooSalon2.Pages.ServiceTypes.CreateModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-info">Добавить услугу</h2>
+<form method="post">
+
+    <div class="white-background border">
+        <div class="row">
+            <div class="col-5 offset-2">
+                <div asp-validation-summary="All" class="text-danger"></div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="ServiceType.Name">Имя</label>
+            </div>
+
+            <div class="col-5">
+                <input asp-for="ServiceType.Name" class="form-control" />
+            </div>
+            <span class="text-danger" asp-validation-for="ServiceType.Name"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="ServiceType.Price">Цена</label>
+            </div>
+
+            <div class="col-5">
+                <input asp-for="ServiceType.Price" class="form-control" />
+            </div>
+            <span class="text-danger" asp-validation-for="ServiceType.Price"></span>
+        </div>
+
+        <partial name="_CreateAndBackToListButtonPartial" />
+
+    </div>
+
+</form>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial"); /*частичное представление???*/
+    }
+}

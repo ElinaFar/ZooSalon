@@ -1,0 +1,79 @@
+﻿@page
+@model ZooSalon2.Pages.Animals.DeleteModel
+@{
+    ViewData["Title"] = "Detlete";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-info">Удалить информацию о питомце</h2>
+<form method="post">
+    @Html.HiddenFor(m => m.Animal.Id)
+    @Html.HiddenFor(m => m.Animal.UserId)
+    <div class="white-background border">
+       
+
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Animal.Type">Класс</label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Animal.Type" class="form-control" readonly/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Animal.Kind">Порода</label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Animal.Kind" class="form-control"readonly />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Animal.Name">Имя</label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Animal.Name" class="form-control"readonly />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Animal.Birthday">Дата рождения</label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Animal.Birthday" class="form-control" readonly/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Animal.Weight">Вес (кг)</label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Animal.Weight" class="form-control" readonly/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-5 offset-2">
+                <div class="row">
+                    <div class="col-6">
+                        <input type="submit" class="btn btn-outline-primary form-control" onclick="return confirm('Вы уверены?')" value="Удалить" />
+
+                    </div>
+                    <div class="col-6">
+                        <a class="btn btn-outline-success form-control" asp-page="Index" asp-route-userId="@Model.Animal.UserId">Назад</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</form>
+

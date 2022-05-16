@@ -1,0 +1,180 @@
+﻿@page
+@model ZooSalon2.Pages.Animals.IndexModel
+@using ZooSalon2.Utility
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+
+<h2 class="text-info">Питомцы</h2>
+
+<div class="container white-background">
+    <div class="card">
+        <div class="card-header bg-dark text-light row container ml-0">
+            <div class="col-6">
+                <i class="fas fa-paw"></i>
+            </div>
+
+            <div class="col-6 text-right">
+                @if (User.IsInRole(SD.AdminEndUser))
+                {
+                    <a asp-page="../Users/Index" class="btn btn-outline-info">Назад</a>
+                }
+            </div>
+        </div>
+
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-3">
+                    <a asp-page="Create" asp-route-userId="@Model.CustomerAndAnimalVM.UserObj.Id" class="btn-outline-info form-control">
+                        <i class="fas fa-plus"></i>&nbsp; Добавить питомца
+                    </a>
+                </div>
+
+                <div class="col-6 offset-3">
+                    <div class="row form-group">
+                        <div class="col-4">
+                            <label asp-for="CustomerAndAnimalVM.UserObj.LasttName">Фамилия</label>
+
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control" asp-for="CustomerAndAnimalVM.UserObj.LasttName" readonly />
+
+                        </div>
+                        <div class="col-4">
+                            <label asp-for="CustomerAndAnimalVM.UserObj.FirstName">Имя</label>
+
+                        </div>
+                        <div class="col-8">
+
+                            <input class="form-control" asp-for="CustomerAndAnimalVM.UserObj.FirstName" readonly />
+
+                        </div>
+                        <div class="col-4">
+                            <label asp-for="CustomerAndAnimalVM.UserObj.PhoneNumber">Номер телефона</label>
+
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control" asp-for="CustomerAndAnimalVM.UserObj.PhoneNumber" readonly />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+
+                @if (Model.CustomerAndAnimalVM.Animals.Count() == 0)
+                {
+                    <p class="text-danger">Питомцы отсутствуют. Пожалуйста создайте новую запись.</p>
+                }
+                else
+                {
+                    <table class="table table-striped border">
+                        <tr class="table-secondary">
+                            <th>
+                                @Html.LabelFor(m => m.CustomerAndAnimalVM.Animals.FirstOrDefault().Type, "Тип")
+                            </th>
+                            <th>
+                                @Html.LabelFor(m => m.CustomerAndAnimalVM.Animals.FirstOrDefault().Kind, "Порода")
+                            </th>
+                            <th>
+                                @Html.LabelFor(m => m.CustomerAndAnimalVM.Animals.FirstOrDefault().Name, "Имя")
+                            </th>
+                            <th>
+                                @Html.LabelFor(m => m.CustomerAndAnimalVM.Animals.FirstOrDefault().Birthday, "Дата рождения")
+                            </th>
+                            <th>
+                                @Html.LabelFor(m => m.CustomerAndAnimalVM.Animals.FirstOrDefault().Weight, "Вес (кг)")
+                            </th>
+                            @if (User.IsInRole(SD.AdminEndUser))
+                            {
+                                <th>
+
+                                </th>
+                            }
+                          @*  @if (User.IsInRole(SD.AdminEndUser))
+                            {
+
+                                <th>
+
+                                </th>
+                            }*@
+                            <th>
+
+                                </th>
+                                 <th>
+
+                                </th>
+                          
+                           
+                            </tr>
+                        @foreach (var item in Model.CustomerAndAnimalVM.Animals)
+                        {                                               
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Kind)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Birthday)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Weight)
+                        </td>
+
+                        @if (User.IsInRole(SD.AdminEndUser))
+                        {
+                            <td>
+                                <a asp-page="../Services/Create" class="btn btn-outline-success" asp-route-animalId="@item.Id">
+                                    <i class="fas fa-plus"></i> &nbsp; Новая услуга
+                                </a>
+                            </td>
+                        }
+                        
+                     
+                        <td>
+                            <a asp-page="../Services/History" class="btn btn-outline-secondary" asp-route-animalId="@item.Id">
+                                <i class="fas fa-plus"></i> &nbsp;История посещений
+                            </a>
+
+                        </td>
+                         @if (!User.IsInRole(SD.AdminEndUser))
+                                {
+                                    <td>
+                                        <a asp-page="../Record/Create" class="btn btn-outline-success" asp-route-animalId="@item.Id">
+                                            <i class="fas fa-plus"></i> &nbsp; Записаться
+                                        </a>
+                                    </td>
+                                }
+
+                        @if (User.IsInRole(SD.AdminEndUser))
+                        {
+
+                            <td style="width:120px">
+                                <div class="btn-group" role="group">
+                                    <a asp-page="Edit" class="btn btn-light" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+                                    <a asp-page="Delete" class="btn btn-light" asp-route-id="@item.Id"><i class="far fa-trash-alt"></i></a>
+                                </div>
+                            </td>
+                        }
+                        </tr>                      
+                            } 
+                        
+                    </table>               
+                    }          
+            </div>
+        </div>
+    </div>
+</div>
+
+

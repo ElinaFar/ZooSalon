@@ -1,0 +1,108 @@
+﻿@page
+@model ZooSalon2.Pages.Services.HistoryModel
+@{
+    ViewData["Title"] = "History";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container pt-4 pb-2 row">
+    <div class=" col-6">
+        <h2 class="text-info">История посещений</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-page="../Animals/Index" class="btn btn-outline-success" asp-route-userId="@Model.Animal.ApplicationUser.Id">
+            Назад
+        </a>
+    </div>
+</div>
+
+<div class="container white-background ">
+    <div class="card">
+        <div class="card-header bg-dark text-light container row ml-0">
+            <div class="col-1 text-center text-white-50 pt-3 ">
+                <i class="fas fa-user fa-2x"></i>
+            </div>
+            <div class="col-5">
+                <label class="text-info">
+                    @Model.Animal.ApplicationUser.LasttName
+                    @Model.Animal.ApplicationUser.FirstName
+                </label>
+                <br />
+                <label class="text-info">
+                    @Model.Animal.ApplicationUser.PhoneNumber / @Model.Animal.ApplicationUser.Email
+                </label>
+            </div>
+            <div class="col-5 text-right">
+                <label class="text-info">
+                    @Model.Animal.Name /  @Model.Animal.Type  @Model.Animal.Kind
+                </label>
+                <br />
+                <label class="text-info">
+                    @Model.Animal.Weight кг
+                </label>
+
+            </div>
+
+            <div class="col-1 text-center text-white-50 pt-3 ">
+                <i class="fas fa-paw fa-2x"></i>
+            </div>
+        </div>
+
+        <div class="card-body">
+
+            @if (Model.Services.Count() == 0)
+            {
+                <p class="text-danger">Нет записей для этого питомца</p>
+
+            }
+
+            else
+            {            
+
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        @Html.LabelFor(m => m.Services[0].TotalPrice, "Стоимость за прием")
+                    </th>
+                    <th>
+                        @Html.LabelFor(m => m.Services[0].Comments, "Комментарий")
+                    </th>
+                    <th>
+                        @Html.LabelFor(m => m.Services[0].Date, "Дата посещения")
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.Services)
+                {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.TotalPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Comments)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Date)
+                </td>
+                <td>
+                    <a class=" btn btn-outline-secondary form-control" asp-page="Details" asp-route-serviceId="@item.Id">
+                        <i class="fas fa-list-alt"></i>&nbsp;Подробнее
+                    </a>
+                   
+                </td>
+            </tr>
+
+                }
+                
+            </table>
+
+            }
+
+
+        </div>
+
+
+    </div>
+</div>
